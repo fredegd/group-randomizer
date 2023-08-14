@@ -1,0 +1,15 @@
+{
+  "name": "group-randomizer",
+  "version": "1.0.0",
+  "description": "user interface in order to randomize groups of names",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react-hook-form": "^7.45.4"
+  }
+}
