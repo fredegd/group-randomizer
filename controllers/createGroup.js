@@ -7,7 +7,7 @@ const createGroup = async (req, res, next) => {
       title,
       members,
     };
-    console.log(req.cookies);
+    console.log(req.body);
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "259200m",
     });
@@ -16,7 +16,7 @@ const createGroup = async (req, res, next) => {
 
       .cookie("randomGroups_token", token, {
         maxAge: 180 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
+        // httpOnly: true,
       })
       .json(payload);
   } catch (error) {
