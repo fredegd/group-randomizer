@@ -23,9 +23,9 @@ const getCookieValue = (name) => {
   return null;
 };
  const token = getCookieValue("randomGroups_token");
- console.log(token)
+//  console.log(token)
  const decodedToken = jwt_decode(token);
- console.log(decodedToken); // Display the decoded token payload
+//  console.log(decodedToken); // Display the decoded token payload
 
  useEffect(() => {
         setTitle(decodedToken.title)

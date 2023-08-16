@@ -2,7 +2,7 @@ import React from "react";
 
 
 export default function Groups({ title, members }) {
-  console.log(title, members);
+  // console.log(title, members);
 
   return (
     <div>
