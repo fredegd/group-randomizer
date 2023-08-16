@@ -1,14 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-export default function InputMask({ groupName, setGroupName, members, setMembers }) {
+export default function InputMask({ title, setTitle, members, setMembers }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  
-  const defaultGroupName = groupName || "";
+
+  const defaultTitle = title || "";
   const defaultMembers = members ? members.join("\n") : "";
 
   const onSubmit = (data) => {
@@ -18,15 +19,20 @@ export default function InputMask({ groupName, setGroupName, members, setMembers
       .map((member) => member.trim()) // Trim each member
       .filter((member) => member !== ""); // Remove empty members
 
-    setGroupName(data.groupName)
+    setTitle(data.title);
     setMembers(memberArray);
+    reset();
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("groupName", { defaultValue: defaultGroupName })} />
-        <textarea {...register("members", { defaultValue: defaultMembers })} rows="4" cols="50" />
+        <input {...register("title", { defaultValue: defaultTitle })} />
+        <textarea
+          {...register("members", { defaultValue: defaultMembers })}
+          rows="4"
+          cols="50"
+        />
         <input type="submit" />
       </form>
     </div>
