@@ -7,7 +7,7 @@ const createGroup = async (req, res, next) => {
       title,
       members,
     };
-    console.log(req.body);
+    // console.log(req.body);
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "259200m",
     });

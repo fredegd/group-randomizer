@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import InputMask from "./InputMask";
 import Groups from "./Groups";
+import List from "./List";
 import jwt_decode from "jwt-decode";
 
 export default function Randomizer() {
@@ -28,13 +29,14 @@ export default function Randomizer() {
   }, [tokenValue]);
 
   return (
-    <div>
+    <div style={{display:"flex", gap:"4rem"}}>
       <InputMask
         title={title}
         members={members}
         setTokenValue={setTokenValue}
       />
-      <Groups title={title} members={members} />
+      <List title={title} members={members} />
+      <Groups  members={members} />
     </div>
   );
 }

@@ -30,8 +30,8 @@ export default function InputMask({ title, members, setTokenValue }) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div >
+      <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
         <input
           defaultValue={title}
           {...register("title", { required: true })}
@@ -40,9 +40,9 @@ export default function InputMask({ title, members, setTokenValue }) {
           defaultValue={members}
           {...register("members", { required: true })}
           rows="4"
-          cols="50"
+          cols="40"
         />
-        <input type="submit" />
+        <button type="submit">SUBMIT</button>
       </form>
     </div>
   );
