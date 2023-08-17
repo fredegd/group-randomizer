@@ -9,23 +9,26 @@ export default function Randomizer() {
   const [title, setTitle] = useState();
   const [members, setMembers] = useState();
   const [tokenValue, setTokenValue] = useState();
+  const [pastGroups, setPastGroups] = useState([]);
   useEffect(() => {
+
     const getCookieValue = (name) => {
-      const cookies = document.cookie.split("; ");
+      if(document.cookie.length>0){const cookies = document.cookie.split("; ");
       for (const cookie of cookies) {
         const [cookieName, cookieValue] = cookie.split("=");
         if (cookieName === name) {
           return cookieValue;
         }
-      }
+      }}
       return null;
     };
     const token = getCookieValue("randomGroups_token");
-    const decodedToken = jwt_decode(token);
-    //  console.log(decodedToken); // Display the decoded token payload
+   const decodedToken = jwt_decode(token);
+    console.log(decodedToken); // Display the decoded token payload
 
-    setTitle(decodedToken.title);
-    setMembers(decodedToken.members);
+   setTitle(decodedToken.title);
+   setMembers(decodedToken.members);
+   setPastGroups(decodedToken.pastGroups)
   }, [tokenValue]);
 
   return (
@@ -34,9 +37,10 @@ export default function Randomizer() {
         title={title}
         members={members}
         setTokenValue={setTokenValue}
+        pastGroups={pastGroups}
       />
       <List title={title} members={members} />
-      <Groups  members={members} />
+      <Groups  members={members} pastGroups={pastGroups} setPastGroups={setPastGroups} />
     </div>
   );
 }

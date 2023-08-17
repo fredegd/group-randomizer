@@ -2,10 +2,11 @@ const jwt = require("jsonwebtoken");
 
 const createGroup = async (req, res, next) => {
   try {
-    const { title, members } = req.body;
+    const { title, members, pastGroups } = req.body;
     const payload = {
       title,
       members,
+      pastGroups
     };
     // console.log(req.body);
     const token = jwt.sign(payload, process.env.JWT_SECRET, {

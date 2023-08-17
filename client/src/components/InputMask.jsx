@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default function InputMask({ title, members, setTokenValue }) {
+export default function InputMask({ title, members, setTokenValue, pastGroups }) {
   // console.log(title, members);
   const {
     register,
@@ -19,12 +19,12 @@ export default function InputMask({ title, members, setTokenValue }) {
     axios
       .post(
         "http://localhost:3010/api/create/group",
-        { title: data.title, members: memberArray },
+        { title: data.title, members: memberArray, pastGroups:pastGroups },
         { withCredentials: true }
       )
       .then((response) => {
         setTokenValue(response.data);
-        // console.log(response.data);
+         console.log(response.data);
       })
       .catch((err) => console.error(err));
   };
