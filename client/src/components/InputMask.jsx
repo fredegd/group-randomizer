@@ -2,49 +2,43 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default function InputMask({ title, setTitle, members, setMembers }) {
+export default function InputMask({ title, members, setTokenValue }) {
   // console.log(title, members);
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
 
-  const defaultTitle = "";
-  const defaultMembers = members ? members.join("\n") : "";
-
   const onSubmit = (data) => {
-    const { members, title } = data;
-    const memberArray = members
+    const memberArray = data.members
       .split(/\n|,|;|\./) // Split on newline, comma, semicolon, or dot
       .map((member) => member.trim()) // Trim each member
       .filter((member) => member !== ""); // Remove empty members
 
-    setTitle(data.title);
-    setMembers(memberArray);
-
     axios
       .post(
         "http://localhost:3010/api/create/group",
-        { title, members: memberArray },
+        { title: data.title, members: memberArray },
         { withCredentials: true }
       )
       .then((response) => {
-        const tokenValue = response.data;
-        console.log(tokenValue);
+        setTokenValue(response.data);
+        // console.log(response.data);
       })
       .catch((err) => console.error(err));
-
-    reset();
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" defaultValue={title}  {...register("title") }  />
-        <textarea defaultValue={members}  {...register("members")}
-          
+        <input
+          defaultValue={title}
+          {...register("title", { required: true })}
+        />
+        <textarea
+          defaultValue={members}
+          {...register("members", { required: true })}
           rows="4"
           cols="50"
         />

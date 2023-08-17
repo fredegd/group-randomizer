@@ -6,7 +6,8 @@ export default function Groups({ title, members }) {
 
   return (
     <div>
-      <h1>{title}</h1>
+      {title && <h1>{title}</h1>}
+      
       {members && members.map((member) => <p key={member}>{member}</p>)}
     </div>
   );
