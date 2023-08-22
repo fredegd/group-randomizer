@@ -2,11 +2,35 @@ const jwt = require("jsonwebtoken");
 
 const createGroup = async (req, res, next) => {
   try {
-    const { title, members, pastGroups } = req.body;
+    const { title, members, history } = req.body;
     const payload = {
       title,
       members,
-      pastGroups
+      history,
+    };
+    // console.log(req.body);
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: "259200m",
+    });
+    res
+      .header("Access-Control-Allow-Credentials", true)
+
+      .cookie("randomGroups_token", token, {
+        maxAge: 180 * 24 * 60 * 60 * 1000,
+        // httpOnly: true,
+      })
+      .json(payload);
+  } catch (error) {
+    next(error);
+  }
+};
+const updateGroup = async (req, res, next) => {
+  try {
+    const { title, members, history } = req.body;
+    const payload = {
+      title,
+      members,
+      history,
     };
     // console.log(req.body);
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -25,4 +49,4 @@ const createGroup = async (req, res, next) => {
   }
 };
 
-module.exports = createGroup;
+module.exports = {createGroup, updateGroup};

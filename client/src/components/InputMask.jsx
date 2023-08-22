@@ -2,7 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-export default function InputMask({ title, members, setTokenValue, pastGroups }) {
+export default function InputMask({
+  title,
+  members,
+  setTokenValue,
+  pastGroups,
+}) {
   // console.log(title, members);
   const {
     register,
@@ -19,19 +24,36 @@ export default function InputMask({ title, members, setTokenValue, pastGroups })
     axios
       .post(
         "http://localhost:3010/api/create/group",
-        { title: data.title, members: memberArray, pastGroups:pastGroups },
+        { title: data.title, members: memberArray, history: pastGroups },
         { withCredentials: true }
       )
       .then((response) => {
         setTokenValue(response.data);
-         console.log(response.data);
+        console.log(response.data);
       })
       .catch((err) => console.error(err));
   };
 
+  const resetAll = ()=>{
+    axios
+      .put(
+        "http://localhost:3010/api/create/group",
+        { title:"", members: "", history: ""},
+        { withCredentials: true }
+      )
+      .then((response) => {
+        setTokenValue(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => console.error(err))
+  }
+  
   return (
-    <div >
-      <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", flexDirection:"column", gap:"2rem"}}>
+    <div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
+      >
         <input
           defaultValue={title}
           {...register("title", { required: true })}
@@ -44,6 +66,7 @@ export default function InputMask({ title, members, setTokenValue, pastGroups })
         />
         <button type="submit">SUBMIT</button>
       </form>
+      <button onClick={resetAll}>reset</button>
     </div>
   );
 }
