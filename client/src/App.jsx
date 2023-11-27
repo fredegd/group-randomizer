@@ -1,16 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Randomizer from './components/Randomizer'
+import { useState } from "react";
+import "./App.css";
+import SideNavbar from "./components/SideNavbar";
 function App() {
-
   return (
-    <>
-     <Randomizer/>
-     
-    </>
-  )
+    <div>
+      <SideNavbar />
+    </div>
+  );
 }
 
-export default App
+export default App;
