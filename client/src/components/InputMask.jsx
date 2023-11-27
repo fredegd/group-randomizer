@@ -1,77 +1,77 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import { signal } from "@preact/signals-react";
+import { useForm } from "react-hook-form"; 
 
-export default function InputMask({
-  title,
-  members,
-  tokenValue,
-  setTokenValue,
-  pastGroups,
-}) {
-  // console.log(title, members);
+export default function InputMask() {
+  console.log("rendering InputMask")
+  // const [batch, setBatch] = useState({});
+  // const [members, setMembers] = useState([]);
+  // const [instructor, setInstructor] = useState("");
+  // const [projects, setProjects] = useState([]);
+
+  const instructor = signal("");
+  const members = signal([]);
+  const projects = signal([]);
+
   const {
     register,
     handleSubmit,
+    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    const memberArray = data.members
-      .split(/\n|,|;|\./) // Split on newline, comma, semicolon, or dot
-      .map((member) => member.trim()) // Trim each member
-      .filter((member) => member !== ""); // Remove empty members
-
-    const updatedTokenValue = {
-      title: data.title,
-      members: memberArray,
-      history: tokenValue.history || [], // Use history or an empty array
-    };
-
-    axios
-      .post("http://localhost:3010/api/create/group", updatedTokenValue, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setTokenValue(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => console.error(err));
+    console.log(data);
+    reset();
   };
 
-  const resetAll = () => {
-    axios
-      .put(
-        "http://localhost:3010/api/create/group",
-        { title: "", members: "", history: "" },
-        { withCredentials: true }
-      )
-      .then((response) => {
-        setTokenValue(response.data);
-        console.log(response.data);
-      })
-      .catch((err) => console.error(err));
+  const addMember = () => {
+    const member = watch("member");
+    console.log(member)
+    const prev = members.value
+    members.value = [...prev, member]
+    console.log(members.value);
+  };
+
+  const addProject = () => {
+    const project = watch("project");
+    projects.value = (prev) => [...prev, project];
+    console.log(project);
   };
 
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
-      >
+    <form
+      className="w-full flex flex-col items-center"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+     
+
+      <div className="w-10/12 flex">
         <input
-          defaultValue={title}
-          {...register("title", { required: true })}
+          type="text"
+          placeholder="member"
+          className="w-10/12 my-3"
+          {...register("member")}
         />
-        <textarea
-          defaultValue={members}
-          {...register("members", { required: true })}
-          rows="4"
-          cols="40"
+        <div className="w-2/12 my-3" onClick={addMember}>
+          +
+        </div>
+      </div>
+
+      <div className="w-10/12 flex">
+        <input
+          type="text"
+          placeholder="project"
+          className="w-10/12 my-3"
+          {...register("project")}
         />
-        <button type="submit">SUBMIT</button>
-      </form>
-      <button onClick={resetAll}>reset</button>
-    </div >
+        <div className="w-2/12 my-3" onClick={addProject}>
+          +
+        </div>
+      </div>
+      <button className="w-10/12 my-3 border" type="submit">
+        submit
+      </button>
+    </form>
   );
 }
