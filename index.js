@@ -21,7 +21,7 @@ app.use(express.json());
 const batchRouter = require("./routes/batchRouter");
 const groupRouter = require("./routes/groupRouter");
 const memberRouter = require("./routes/memberRouter");
-const groupProjectsRouter = require("./routes/groupProjectsRouter");
+const projectsRouter = require("./routes/projectsRouter");
 
 app.use("/api/groups", groupRouter);
 
@@ -29,7 +29,7 @@ app.use("/api/batches", batchRouter);
 
 app.use("/api/members", memberRouter);
 
-app.use("/api/projects", groupProjectsRouter);
+app.use("/api/projects", projectsRouter);
 
 app.use(errorHandler);
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const groupProjectSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
   projectName: {
     type: String,
     required: true,
@@ -15,6 +15,6 @@ const groupProjectSchema = new mongoose.Schema({
   ],
 });
 
-const GroupProject = mongoose.model("GroupProject", groupProjectSchema);
+const Project = mongoose.model("Project", projectSchema);
 
-module.exports = GroupProject;
+module.exports = Project;
