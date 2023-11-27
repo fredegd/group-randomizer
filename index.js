@@ -1,14 +1,14 @@
 const express = require("express");
 require("dotenv").config();
-const path = require("path")
+const path = require("path");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 
-const port = process.env.PORT || 3011;
+const port = process.env.PORT || 3010;
 
-
-app.use(express.static(path.join(__dirname, "client", "dist")))
+app.use(express.static(path.join(__dirname, "client", "dist")));
+require("./db");
 
 const { errorHandler } = require("./middlewares/errorHandler");
 
@@ -18,17 +18,21 @@ app.use(cookieParser());
 
 app.use(express.json());
 
+const batchRouter = require("./routes/batchRouter");
+const groupRouter = require("./routes/groupRouter");
+const memberRouter = require("./routes/memberRouter");
+const groupProjectsRouter = require("./routes/groupProjectsRouter");
 
-const createGroupRouter = require("./routes/createGroupRouter");
-app.use("/api/create", createGroupRouter);
+app.use("/api/groups", groupRouter);
 
+app.use("/api/batches", batchRouter);
 
-// app.get("*", (req, res)=>{
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html" ))
-// })
+app.use("/api/members", memberRouter);
+
+app.use("/api/projects", groupProjectsRouter);
 
 app.use(errorHandler);
 
 app.listen(port, () =>
-console.log(`Server is successfully running on http://localhost:${port}`)
+  console.log(`Server is successfully running on http://localhost:${port}`)
 );

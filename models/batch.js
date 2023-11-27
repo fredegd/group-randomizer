@@ -6,17 +6,18 @@ const batchSchema = new mongoose.Schema({
         required: true,
         max: 300,
     },
+    instructor: {
+        type: String,
+        required: true,
+        max: 300,
+    },
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
     }],
-    instructor: {
+    groupProjects: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Instructor',
-    },
-    groups: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Group',
+        ref: 'GroupProjects',
     }],
 });
 

@@ -1,11 +1,11 @@
-const group = require("../models/batch");
+const Batch = require("../models/batch");
 
 
 // getBatch, getBatches, createBatch, updateBatch, deleteBatch
 
 const getBatch = async (req, res) => {
     try {
-        const batch = await Batch.findById(req.params.id).populate("members").populate("instructor").populate("groups");
+        const batch = await Batch.findById(req.params.id).populate([{path:"members", strictPopulate: false}]).populate([{path:"groups", strictPopulate: false}]);
         res.status(200).json({ batch });
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -14,7 +14,7 @@ const getBatch = async (req, res) => {
 
 const getBatches = async (req, res) => {
     try {
-        const batches = await Batch.find().populate("members").populate("instructor").populate("groups");
+        const batches = await Batch.find().populate([{path:"members", strictPopulate: false}]).populate([{path:"groups", strictPopulate: false}]);;
         res.status(200).json({ batches });
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -23,6 +23,7 @@ const getBatches = async (req, res) => {
 
 const createBatch = async (req, res) => {
     try {
+        console.log(req.body);
         const batch = await Batch.create(req.body);
         res.status(201).json({ batch });
     } catch (error) {
@@ -35,7 +36,7 @@ const updateBatch = async (req, res) => {
         const id = req.params.id;
         const body = req.body;
 
-        const batch = await Batch.findByIdAndUpdate(id, body, { new: true }).populate("members").populate("instructor").populate("groups");
+        const batch = await Batch.findByIdAndUpdate(id, body, { new: true }).populate([{path:"members", strictPopulate: false}]).populate([{path:"groups", strictPopulate: false}]);;
         res.status(200).json({ batch });
     }catch(error){
         res.status(404).json({ message: error.message });
