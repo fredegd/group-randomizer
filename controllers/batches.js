@@ -1,13 +1,9 @@
 const Batch = require("../models/batch");
 
 
-
 const getBatches = async (req, res) => {
   try {
     const batches = await Batch.find()
-      .populate([{ path: "members", strictPopulate: false }])
-      .populate([{ path: "groups", strictPopulate: false }])
-      .populate([{ path: "projects", strictPopulate: false }]);
 
     res.status(200).json({ batches });
   } catch (error) {
@@ -18,9 +14,7 @@ const getBatches = async (req, res) => {
 const getBatch = async (req, res) => {
   try {
     const batch = await Batch.findById(req.params.id)
-      .populate([{ path: "members", strictPopulate: false }])
-      .populate([{ path: "groups", strictPopulate: false }])
-      .populate([{ path: "projects", strictPopulate: false }]);
+
     res.status(200).json({ batch });
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -43,9 +37,6 @@ const updateBatch = async (req, res) => {
     const body = req.body;
 
     const batch = await Batch.findByIdAndUpdate(id, body, { new: true })
-      .populate([{ path: "members", strictPopulate: false }])
-      .populate([{ path: "groups", strictPopulate: false }])
-      .populate([{ path: "projects", strictPopulate: false }]);
 
     res.status(200).json({ batch });
   } catch (error) {

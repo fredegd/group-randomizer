@@ -11,13 +11,29 @@ const batchSchema = new mongoose.Schema({
         required: true,
         max: 300,
     },
-    members: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
+    members:[{
+        name:{
+            type: String,
+            required: true,
+            max: 300,
+        }
     }],
     projects: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project',
+        name:{
+            type: String,
+            required: true,
+            max: 300,
+        },
+        groups: [{
+            members:[{
+                name:{
+                    type: String,
+                    required: true,
+                    max: 300,
+                }
+            }]
+        }]
+
     }],
 });
 
