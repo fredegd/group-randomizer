@@ -139,6 +139,8 @@ import { groupColors } from "../groupColors";
 import { useState, useEffect } from "react";
 import ProjectForm from "./ProjectForm";
 
+import ProjectOptions from "./ProjectOptions";  
+
 export default function ProjectsList() {
   const [projects, setProjects] = useState(projectList);
 
@@ -160,9 +162,14 @@ export default function ProjectsList() {
             + create new Project
           </button>
         ) : (
-          <ProjectForm projects={projects} setProjects={setProjects} setDisplayForm={setDisplayForm} />
+          <ProjectForm
+            projects={projects}
+            setProjects={setProjects}
+            setDisplayForm={setDisplayForm}
+          />
         )}
       </header>
+
       {projects
         .sort((a, b) => {
           return b.index - a.index;
@@ -173,14 +180,16 @@ export default function ProjectsList() {
               key={index}
               className="w-full flex flex-col items-center  bg-slate-200 p-5  border rounded-2xl border-blue-800"
             >
-              <section className="w-full flex justify-start gap-7 mb-5">
-                <h1>
-                  {project.title}
-                  {":"}
-                </h1>
-                <p>{project.description}</p>
-              </section>
-
+              <div className="w-full flex justify-between">
+                <section className="mb-5">
+                  <h1>
+                    {project.title}
+                    {":"}
+                  </h1>
+                  <p>{project.description}</p>
+                </section>
+                <ProjectOptions />
+              </div>
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:justify-around gap-5">
                 {project.groups.map((group, index) => {
                   return (
