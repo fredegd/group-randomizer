@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
+import GroupsAmountSelect from "./GroupsAmountSelect";
 
 export default function ProjectForm({
   projects,
@@ -6,15 +9,9 @@ export default function ProjectForm({
   setBatch,
   setDisplayForm,
 }) {
+  const [groupsAmount, setGroupsAmount] = useState(0);
+
   console.log("rendering ProjectForm");
-
-  // const [projects, setProjects] = useState(() => {
-  //   const storedProjects = localStorage.getItem("projects");
-  //   return storedProjects && storedProjects !== "undefined"
-  //     ? JSON.parse(storedProjects)
-  //     : [];
-  // });
-
   const {
     register,
     handleSubmit,
@@ -117,6 +114,12 @@ export default function ProjectForm({
               Description:
             </label>
           </div>
+        </div>
+        <div>
+          <GroupsAmountSelect
+            groupsAmount={groupsAmount}
+            setGroupsAmount={setGroupsAmount}
+          />
         </div>
         <div className=" w-full flex justify-between">
           <button
