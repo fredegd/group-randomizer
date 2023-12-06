@@ -82,13 +82,13 @@ export default function InputMask() {
             placeholder="Student"
           />
           <label
-            for="memberName"
-            class="px-3 absolute left-0 -top-4 text-gray-600  transition-all 
-        peer-placeholder-shown:text-md
-         peer-placeholder-shown:text-gray-600 
-         peer-placeholder-shown:top-1.5 
-         peer-focus:-top-4
-         peer-focus:text-gray-600 peer-focus:text-sm"
+            htmlFor="memberName"
+            className="px-3 absolute left-0 -top-4 text-gray-600  transition-all 
+            peer-placeholder-shown:text-md
+            peer-placeholder-shown:text-gray-600 
+            peer-placeholder-shown:top-1.5 
+            peer-focus:-top-4
+           peer-focus:text-gray-600 peer-focus:text-sm"
           >
             new Member:
           </label>

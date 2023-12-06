@@ -51,7 +51,7 @@ export default function BatchForm() {
           defaultValue={instructorName}
         />
         <label
-          for="instructorName"
+          htmlFor="instructorName"
           className="px-3 absolute left-0 -top-4 text-gray-600 text-sm transition-all 
         peer-placeholder-shown:text-lg
         peer-placeholder-shown:text-gray-600 

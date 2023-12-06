@@ -41,7 +41,6 @@ export default function ProjectForm() {
         className="w-10/12  flex max-w-md gap-x-4 relative"
         onSubmit={handleSubmit(onSubmit)}
       >
-
         <input
           type="text"
           {...register("projectName")}
@@ -57,13 +56,13 @@ export default function ProjectForm() {
           placeholder="New Project"
         />
         <label
-          for="projectName"
-          class="px-3 absolute left-0 -top-4 text-gray-600  transition-all 
-        peer-placeholder-shown:text-md
+          htmlFor="projectName"
+          className="px-3 absolute left-0 -top-4 text-gray-600  transition-all 
+          peer-placeholder-shown:text-md
          peer-placeholder-shown:text-gray-600 
-         peer-placeholder-shown:top-1.5 
-         peer-focus:-top-4
-         peer-focus:text-gray-600 peer-focus:text-sm"
+          peer-placeholder-shown:top-1.5 
+          peer-focus:-top-4
+          peer-focus:text-gray-600 peer-focus:text-sm"
         >
           new Project:
         </label>

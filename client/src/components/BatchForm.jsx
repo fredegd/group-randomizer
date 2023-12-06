@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { CommandLineIcon } from '@heroicons/react/24/solid'
-
+import { CommandLineIcon } from "@heroicons/react/24/solid";
 
 export default function BatchForm() {
   const [batchName, setBatchName] = useState(
@@ -9,7 +8,9 @@ export default function BatchForm() {
       ? JSON.parse(localStorage.getItem("batchName"))
       : ""
   );
-  console.log(JSON.parse(localStorage.getItem("batchName")));
+  console.log("rendering BatchForm");
+
+  console.log("batchName: ",JSON.parse(localStorage.getItem("batchName")));
 
   const {
     register,
