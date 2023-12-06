@@ -17,7 +17,7 @@ const menuItems = [
 
 export default function TopNavbar() {
   return (
-    <nav className="bg-blue-500">
+    <nav className="w-full fixed bg-blue-500 ">
       <div className=" max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">

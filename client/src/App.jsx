@@ -9,13 +9,13 @@ import TopNavbar from "./components/TopNavbar";
 function App() {
   return (
     <div className="flex flex-col w-full h-full">
-      <TopNavbar />
       <Routes>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/about" element={<About />} />
         <Route path="/" element={<Landing />} />
       </Routes>
-    
+
+      <TopNavbar />
     </div>
   );
 }

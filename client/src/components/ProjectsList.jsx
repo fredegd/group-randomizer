@@ -1,10 +1,12 @@
 const projectList = [
   {
+    index: 1,
     title: "Project 1",
     description: "This is a project",
     groups: [
       {
         name: "Group 1",
+        bgCol: groupColors[0],
         members: [
           {
             name: "Member 1",
@@ -19,6 +21,7 @@ const projectList = [
       },
       {
         name: "Group 2",
+        bgCol: groupColors[1],
         members: [
           {
             name: "Member 4",
@@ -33,6 +36,7 @@ const projectList = [
       },
       {
         name: "Group 3",
+        bgCol: groupColors[2],
         members: [
           {
             name: "Member 7",
@@ -47,6 +51,7 @@ const projectList = [
       },
       {
         name: "Group 4",
+        bgCol: groupColors[3],
         members: [
           {
             name: "Member 10",
@@ -62,11 +67,13 @@ const projectList = [
     ],
   },
   {
+    index: 2,
     title: "Project 2",
     description: "This is a project",
     groups: [
       {
         name: "Group 1",
+        bgCol: groupColors[4],
         members: [
           {
             name: "Member 1",
@@ -81,6 +88,7 @@ const projectList = [
       },
       {
         name: "Group 2",
+        bgCol: groupColors[5],
         members: [
           {
             name: "Member 4",
@@ -95,6 +103,7 @@ const projectList = [
       },
       {
         name: "Group 3",
+        bgCol: groupColors[6],
         members: [
           {
             name: "Member 7",
@@ -109,6 +118,7 @@ const projectList = [
       },
       {
         name: "Group 4",
+        bgCol: groupColors[7],
         members: [
           {
             name: "Member 10",
@@ -125,28 +135,53 @@ const projectList = [
   },
 ];
 
+import { groupColors } from "../groupColors";
+
 export default function ProjectsList() {
   return (
-    <div className="w-full flex flex-col items-center  bg-blue-200 p-5">
-      <div className="w-full">
-        <h1> Projects:</h1>
-        {projectList.map((project, index) => {
+    <div className="w-full flex flex-col items-center pt-24 md:ml-96 gap-16 bg-slate-100 p-5">
+      <header className="w-full flex justify-between">
+        <h1 className="text-2xl m-2"> Latest projects:</h1>
+        <button className="p-3 m-2 border rounded border-blue-800">+ create new Project</button>
+      </header>
+      {projectList
+        .sort((a, b) => {
+          return b.index - a.index;
+        })
+        .map((project, index) => {
           return (
             <div
               key={index}
-              className="w-full flex flex-col items-center  bg-blue-200 p-5"
+              className="w-full flex flex-col items-center  bg-slate-200 p-5  border rounded-2xl border-blue-800"
             >
-              <h1>{project.title}</h1>
-              <p>{project.description}</p>
-              <div className="w-full">
-                <h2>Groups:</h2>
-                {project.groups.map((group,index) => {
+              <section className="w-full flex justify-start gap-7 mb-5">
+                <h1>
+                  {project.title}
+                  {":"}
+                </h1>
+                <p>{project.description}</p>
+              </section>
+
+              <div className="w-full flex flex-col lg:flex-row md:justify-around gap-5">
+                {project.groups.map((group, index) => {
                   return (
-                    <div key={index}>
-                      <h3>{group.name}</h3>
-                      {group.members.map((member, index) => (
-                        <div key={index}>{member.name}</div>
-                      ))}
+                    <div
+                      key={index}
+                      className="border-4 border-slate-300 rounded-lg p-0 grow"
+                    >
+                      <h3
+                        className="border-b-4 p-5"
+                        style={{ backgroundColor: group.bgCol }}
+                      >
+                        {"group # " + (index + 1)}
+                      </h3>
+                      <ul>
+                        {group.members.map((member, index) => (
+                          <li key={index} className="p-5">
+                            {member.name}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   );
                 })}
@@ -154,7 +189,6 @@ export default function ProjectsList() {
             </div>
           );
         })}
-      </div>
     </div>
   );
 }
