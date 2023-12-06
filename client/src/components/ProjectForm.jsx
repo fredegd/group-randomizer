@@ -1,9 +1,11 @@
-
 import { useForm } from "react-hook-form";
 
-
-
-export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
+export default function ProjectForm({
+  projects,
+  batch,
+  setBatch,
+  setDisplayForm,
+}) {
   console.log("rendering ProjectForm");
 
   // const [projects, setProjects] = useState(() => {
@@ -12,8 +14,6 @@ export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
   //     ? JSON.parse(storedProjects)
   //     : [];
   // });
-
-  console.log(projects.length);
 
   const {
     register,
@@ -25,17 +25,20 @@ export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
 
   const onSubmit = (data) => {
     console.log(data, "is the data");
-    const updated = [
+    const projectsUpdate = [
       {
         index: projects.length + 1,
         title: data.projectName,
         description: data.projectDescription,
-        groups: [],
+        groups: [], ///TODO: add the group randomizer function here
       },
       ...projects,
     ];
-    setProjects(updated);
-    localStorage.setItem("projects", JSON.stringify(updated));
+    setBatch((batch) => {
+      const updatedBatch = { ...batch, projects: projectsUpdate };
+      return updatedBatch;
+    });
+    localStorage.setItem("batch", JSON.stringify(batch));
     reset();
   };
 
@@ -43,19 +46,17 @@ export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
     console.log(project);
   };
 
-
-  const abort = () => { 
-    setDisplayForm(false)
-  }
-
+  const abort = () => {
+    setDisplayForm(false);
+  };
 
   return (
-    <div className="flex items-center mt-8">
+    <div className="flex items-center border border-slate-500 rounded-xl p-4 pt-5">
       <form
         className="w-full  flex flex-col items-end justify-start max-w-md gap-x-4 relative"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col gap-5">
+        <div className="w-96 flex flex-col gap-5">
           <div className="relative w-full">
             <input
               type="text"
@@ -65,41 +66,43 @@ export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
               required
               className="bg-transparent
             hover:bg-blue-400 focus:bg-blue-400
-            
+           
             peer h-10 w-full 
             placeholder-shown:border-b-2
             placeholder-shown:border-gray-300
             px-3
-            text-3xl text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600"
+            text-xl text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600"
               placeholder="New Project"
             />
             <label
               htmlFor="projectName"
               className="px-3 absolute left-0 -top-4 text-gray-600 text-sm transition-all 
+
             peer-placeholder-shown:text-lg
             peer-placeholder-shown:text-gray-600 
             peer-placeholder-shown:top-1.5 
             peer-focus:-top-4
             peer-focus:text-gray-600 peer-focus:text-sm"
             >
-              New Project
+              Project Name:
             </label>
           </div>
 
           <div className="relative w-full">
-            <input
-              type="text"
+            <textarea
               {...register("projectDescription")}
+              rows="5"
               id="projectDescription"
               name="projectDescription"
               required
-              className="bg-transparent
+              className="
+             bg-transparent
             hover:bg-blue-400 focus:bg-blue-400
-            peer h-10 w-full 
+            peer w-full 
             placeholder-shown:border-b-2
             placeholder-shown:border-gray-300
             px-3
-            text-3xl text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600"
+            text-xl text-gray-900 placeholder-transparent focus:outline-none focus:border-rose-600"
               placeholder="Description"
             />
             <label
@@ -111,21 +114,21 @@ export default function ProjectForm({ projects, setProjects, setDisplayForm }) {
             peer-focus:-top-4
             peer-focus:text-gray-600 peer-focus:text-sm"
             >
-              Description
+              Description:
             </label>
           </div>
         </div>
         <div className=" w-full flex justify-between">
           <button
             type="submit"
-            className="   border rounded-lg border-blue-400 p-3 my-3 hover:bg-blue-300 "
+            className="   border rounded-lg border-blue-400 p-3 mt-3 hover:bg-blue-300 "
           >
             {" "}
             shuffle Groups and Save
           </button>
           <button
             onClick={abort}
-            className="  border rounded-lg border-red-400 p-3 my-3  hover:bg-red-300 "
+            className="  border rounded-lg border-red-400 p-3 mt-3  hover:bg-red-300 "
           >
             {" "}
             cancel

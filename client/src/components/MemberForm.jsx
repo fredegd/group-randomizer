@@ -3,21 +3,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserPlusIcon, UserMinusIcon } from "@heroicons/react/24/solid";
 
-import {members} from "../data/members";
-
-
-export default function InputMask() {
+export default function InputMask({ batch, setBatch }) {
   console.log("rendering member form");
+  const classMembers = batch.members;
+  console.log("members are : ", classMembers);
 
-  const [classMembers, setClassMembers] = useState(() => {
-    const storedMembers = localStorage.getItem("members");
-    return storedMembers && storedMembers !== "undefined"
-      ? JSON.parse(storedMembers)
-      : members;
-  });
+  // const [classMembers, setClassMembers] = useState(() => {
+  //   const storedMembers = localStorage.getItem("members");
+  //   return storedMembers && storedMembers !== "undefined"
+  //     ? JSON.parse(storedMembers)
+  //     : members;
+  // });
   // const [classMembers, setClassMembers] = useState(members);
-
-  console.log(members);
 
   const {
     register,
@@ -29,19 +26,31 @@ export default function InputMask() {
 
   const onSubmit = (data) => {
     console.log(data, "is the data");
-    const updatedMembers = [...members, { name: data.memberName }];
-    setClassMembers(updatedMembers);
-    localStorage.setItem("members", JSON.stringify(updatedMembers));
+    const updatedMembers = [...classMembers, { name: data.memberName }];
+    setBatch((batch) => {
+      const updatedBatch = { ...batch, members: updatedMembers };
+      localStorage.setItem("batch", JSON.stringify(updatedBatch));
+      return updatedBatch;
+    });
+
     reset();
   };
 
   const removeMember = (mem) => {
     console.log(mem);
-    const newArrayData = members.filter((member) => member.name !== mem.name);
-    setClassMembers(newArrayData);
-    localStorage.setItem("members", JSON.stringify(newArrayData));
-    console.log("removed");
+    const newArrayData = classMembers.filter(
+      (member) => member.name !== mem.name
+    );
+
+    setBatch((batch) => {
+      const updatedBatch = { ...batch, members: newArrayData };
+      localStorage.setItem("batch", JSON.stringify(updatedBatch));
+
+      return updatedBatch;
+    });
+    console.log(mem, " was removed");
   };
+
   return (
     <div className="w-full mt-6  ">
       <h3 className="pl-11  text-gray-600 text-sm transition-all">Students:</h3>

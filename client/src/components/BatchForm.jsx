@@ -2,15 +2,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { CommandLineIcon } from "@heroicons/react/24/solid";
 
-export default function BatchForm() {
-  const [batchName, setBatchName] = useState(
-    localStorage.getItem("batchName")
-      ? JSON.parse(localStorage.getItem("batchName"))
-      : ""
-  );
+export default function BatchForm({ batch, setBatch }) {
+  const batchName = batch.batchName;
+  // const [batchName, setBatchName] = useState(
+  //   localStorage.getItem("batchName")
+  //     ? JSON.parse(localStorage.getItem("batchName"))
+  //     : ""
+  // );
   console.log("rendering BatchForm");
-
-  console.log("batchName: ", JSON.parse(localStorage.getItem("batchName")));
 
   const {
     register,
@@ -21,9 +20,13 @@ export default function BatchForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBatchName(data.batchName);
-    console.log("submit", data);
-    localStorage.setItem("batchName", JSON.stringify(data.batchName));
+    const newName = data.batchName;
+    console.log("submit", data.batchName);
+    setBatch((batch) => {
+      const updatedBatch = { ...batch, batchName: newName };
+      localStorage.setItem("batch", JSON.stringify(updatedBatch));
+      return updatedBatch;
+    });
   };
   return (
     <div className="flex items-center mt-6">
@@ -32,7 +35,7 @@ export default function BatchForm() {
       <form
         className="w-10/12 flex  max-w-md gap-x-4 relative"
         onSubmit={handleSubmit(onSubmit)}
-        onChange={handleSubmit(onSubmit)}
+        // onChange={handleSubmit(onSubmit)}
       >
         <input
           type="text"

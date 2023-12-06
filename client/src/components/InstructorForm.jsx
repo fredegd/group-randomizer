@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 
 import { ComputerDesktopIcon } from "@heroicons/react/24/solid";
 
-export default function BatchForm() {
-  const [instructorName, setInstructorName] = useState(
-    localStorage.getItem("instructorName")
-      ? JSON.parse(localStorage.getItem("instructorName"))
-      : ""
-  );
+export default function BatchForm({ batch, setBatch }) {
+  const instructorName = batch.instructor;
+
+  // const [instructorName, setInstructorName] = useState(
+  //   localStorage.getItem("instructorName")
+  //     ? JSON.parse(localStorage.getItem("instructorName"))
+  //     : ""
+  // );
 
   const {
     register,
@@ -21,9 +23,13 @@ export default function BatchForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setInstructorName((prev) => data.instructorName);
-    console.log("submit", data);
-    localStorage.setItem("instructorName", JSON.stringify(data.instructorName));
+    const newName = data.instructorName;
+    console.log("submit", data.instructorName);
+    setBatch((batch) => {
+      const updatedBatch = { ...batch, instructor: newName };
+      localStorage.setItem("batch", JSON.stringify(updatedBatch));
+      return updatedBatch;
+    });
   };
 
   return (
@@ -32,7 +38,7 @@ export default function BatchForm() {
       <form
         className="w-10/12 flex flex-col max-w-md gap-x-4 relative "
         onSubmit={handleSubmit(onSubmit)}
-        onChange={handleSubmit(onSubmit)}
+        // onChange={handleSubmit(onSubmit)}
       >
         <input
           type="text"
