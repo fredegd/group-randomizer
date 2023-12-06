@@ -36,6 +36,7 @@ export default function ProjectForm({
       return updatedBatch;
     });
     localStorage.setItem("batch", JSON.stringify(batch));
+    setDisplayForm(false);
     reset();
   };
 
@@ -44,6 +45,7 @@ export default function ProjectForm({
   };
 
   const abort = () => {
+    reset();
     setDisplayForm(false);
   };
 

@@ -119,13 +119,13 @@ export const batchData = {
           bgCol: "#F9C74F",
           members: [
             {
-              name: "Member 1",
+              name: "john",
             },
             {
-              name: "Member 2",
+              name: "jill",
             },
             {
-              name: "Member 3",
+              name: "jenny",
             },
           ],
         },
@@ -134,13 +134,13 @@ export const batchData = {
           bgCol: "#90BE6D",
           members: [
             {
-              name: "Member 4",
+              name: "jane",
             },
             {
-              name: "Member 5",
+              name: "jack",
             },
             {
-              name: "Member 6",
+              name: "josh",
             },
           ],
         },
@@ -149,13 +149,13 @@ export const batchData = {
           bgCol: "#43AA8B",
           members: [
             {
-              name: "Member 7",
+              name: "jacob",
             },
             {
-              name: "Member 8",
+              name: "julie",
             },
             {
-              name: "Member 9",
+              name: "jessica",
             },
           ],
         },
@@ -164,13 +164,13 @@ export const batchData = {
           bgCol: "#4D908E",
           members: [
             {
-              name: "Member 10",
+              name: "jason",
             },
             {
-              name: "Member 11",
+              name: " joe",
             },
             {
-              name: "Member 12",
+              name: "james",
             },
           ],
         },

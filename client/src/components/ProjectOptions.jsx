@@ -11,6 +11,8 @@ import {
 } from "../utils/projectOptions";
 
 const options = [
+  { name: "Download CSV", action: () => console.log("download csv") },
+  { name: "Download PDF", action: () => console.log("download pdf") },
   { name: "Edit Name / Description", action: editName },
   { name: "Edit Groups amount", action: editGroupsAmount },
   { name: "Reshuffle Groups", action: reshuffleGroups },
@@ -21,7 +23,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ProjectOptions({project, batch}) {
+export default function ProjectOptions({ project, batch }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -49,7 +51,7 @@ export default function ProjectOptions({project, batch}) {
               <Menu.Item key={index}>
                 {({ active }) => (
                   <div
-                  onClick={() => option.action(project,batch)}
+                    onClick={() => option.action(project, batch)}
                     className={classNames(
                       active ? " bg-gray-100 text-gray-900" : "text-gray-700",
                       "w-full text-right block px-4 py-2 text-sm "

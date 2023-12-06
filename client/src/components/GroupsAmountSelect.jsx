@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
@@ -6,7 +6,7 @@ const options = [1, 2, 3, 4, 5, 6];
 
 export default function GroupsAmountSelect({ groupsAmount, setGroupsAmount }) {
   const [open, setOpen] = useState(false);
-const [selected, setSelected] = useState(groupsAmount);
+  const [selected, setSelected] = useState(groupsAmount);
 
   return (
     <div className="w-96 font-medium">
@@ -17,7 +17,6 @@ const [selected, setSelected] = useState(groupsAmount);
       >
         {options?.map((option) => (
           <li
-          
             key={option}
             className="p-2 text-sm hover:bg-sky-600 hover:text-white"
             onClick={() => {
