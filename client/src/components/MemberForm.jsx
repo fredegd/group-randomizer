@@ -3,15 +3,19 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { UserPlusIcon, UserMinusIcon } from "@heroicons/react/24/solid";
 
+import {members} from "../data/members";
+
+
 export default function InputMask() {
   console.log("rendering member form");
 
-  const [members, setMembers] = useState(() => {
+  const [classMembers, setClassMembers] = useState(() => {
     const storedMembers = localStorage.getItem("members");
     return storedMembers && storedMembers !== "undefined"
       ? JSON.parse(storedMembers)
-      : [];
+      : members;
   });
+  // const [classMembers, setClassMembers] = useState(members);
 
   console.log(members);
 
@@ -26,7 +30,7 @@ export default function InputMask() {
   const onSubmit = (data) => {
     console.log(data, "is the data");
     const updatedMembers = [...members, { name: data.memberName }];
-    setMembers(updatedMembers);
+    setClassMembers(updatedMembers);
     localStorage.setItem("members", JSON.stringify(updatedMembers));
     reset();
   };
@@ -34,7 +38,7 @@ export default function InputMask() {
   const removeMember = (mem) => {
     console.log(mem);
     const newArrayData = members.filter((member) => member.name !== mem.name);
-    setMembers(newArrayData);
+    setClassMembers(newArrayData);
     localStorage.setItem("members", JSON.stringify(newArrayData));
     console.log("removed");
   };
@@ -42,7 +46,7 @@ export default function InputMask() {
     <div className="w-full mt-6  ">
       <h3 className="pl-11  text-gray-600 text-sm transition-all">Students:</h3>
       <ul className="list-disc pl-10 ">
-        {members.map((mem, index) => {
+        {classMembers.map((mem, index) => {
           return (
             <li
               key={index}

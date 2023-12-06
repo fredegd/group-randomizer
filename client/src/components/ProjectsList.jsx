@@ -1,7 +1,7 @@
 const projectList = [
   {
     index: 1,
-    title: "Project 1",
+    title: "pokemon",
     description: "This is a project",
     groups: [
       {
@@ -68,7 +68,7 @@ const projectList = [
   },
   {
     index: 2,
-    title: "Project 2",
+    title: "Cookbook",
     description: "This is a project",
     groups: [
       {
@@ -136,15 +136,34 @@ const projectList = [
 ];
 
 import { groupColors } from "../groupColors";
+import { useState, useEffect } from "react";
+import ProjectForm from "./ProjectForm";
 
 export default function ProjectsList() {
+  const [projects, setProjects] = useState(projectList);
+
+  const [displayForm, setDisplayForm] = useState(false);
+
+  const handleDisplay = () => {
+    setDisplayForm(!displayForm);
+  };
+
   return (
     <div className="w-full flex flex-col items-center pt-24 md:ml-96 gap-16 bg-slate-100 p-5">
       <header className="w-full flex justify-between">
         <h1 className="text-2xl m-2"> Latest projects:</h1>
-        <button className="p-3 m-2 border rounded border-blue-800">+ create new Project</button>
+        {!displayForm ? (
+          <button
+            className="p-3 m-2 border rounded border-blue-800"
+            onClick={handleDisplay}
+          >
+            + create new Project
+          </button>
+        ) : (
+          <ProjectForm projects={projects} setProjects={setProjects} setDisplayForm={setDisplayForm} />
+        )}
       </header>
-      {projectList
+      {projects
         .sort((a, b) => {
           return b.index - a.index;
         })
@@ -162,22 +181,22 @@ export default function ProjectsList() {
                 <p>{project.description}</p>
               </section>
 
-              <div className="w-full flex flex-col lg:flex-row md:justify-around gap-5">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:justify-around gap-5">
                 {project.groups.map((group, index) => {
                   return (
                     <div
                       key={index}
-                      className="border-4 border-slate-300 rounded-lg p-0 grow"
+                      className="border-4 border-slate-300 rounded-lg p-0 "
                     >
                       <h3
-                        className="border-b-4 p-5"
+                        className="border-b-4  rounded-md py-5 px-3 "
                         style={{ backgroundColor: group.bgCol }}
                       >
                         {"group # " + (index + 1)}
                       </h3>
-                      <ul>
+                      <ul className="flex justify-between flex-wrap">
                         {group.members.map((member, index) => (
-                          <li key={index} className="p-5">
+                          <li key={index} className="py-5 px-3 ">
                             {member.name}
                           </li>
                         ))}

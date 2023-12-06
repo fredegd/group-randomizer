@@ -10,7 +10,7 @@ export default function BatchForm() {
   );
   console.log("rendering BatchForm");
 
-  console.log("batchName: ",JSON.parse(localStorage.getItem("batchName")));
+  console.log("batchName: ", JSON.parse(localStorage.getItem("batchName")));
 
   const {
     register,
