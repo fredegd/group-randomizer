@@ -2,6 +2,10 @@ import React from "react";
 
 const menuItems = [
   {
+    name: "Home",
+    linkTo: "/",
+  },
+  {
     name: "Dashboard",
     linkTo: "/dashboard",
   },
@@ -13,17 +17,17 @@ const menuItems = [
 
 export default function TopNavbar() {
   return (
-    <nav className="bg-blue-300">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <nav className="bg-blue-500">
+      <div className=" max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                {menuItems.map((item) => (
+              <div className=" flex items-baseline space-x-4">
+                {menuItems.map((item, index) => (
                   <a
-                    key={item.name}
+                    key={index}
                     href={item.linkTo}
-                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
                     aria-current="page"
                   >
                     {item.name}
@@ -46,13 +50,13 @@ export default function TopNavbar() {
                 className="block h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
                 />
               </svg>
@@ -61,13 +65,13 @@ export default function TopNavbar() {
                 className="hidden h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke-width="1.5"
+                strokeWidth="1.5"
                 stroke="currentColor"
                 aria-hidden="true"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>

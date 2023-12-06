@@ -20,7 +20,7 @@ export default function BatchForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    setBatchName((prev) => data.batchName);
+    setBatchName(data.batchName);
     console.log("submit", data);
     localStorage.setItem("batchName", JSON.stringify(data.batchName));
   };
@@ -51,8 +51,8 @@ export default function BatchForm() {
           defaultValue={batchName}
         />
         <label
-          for="batchName"
-          class="px-3 absolute left-0 -top-4 text-gray-600 text-sm transition-all 
+          htmlFor="batchName"
+          className="px-3 absolute left-0 -top-4 text-gray-600 text-sm transition-all 
         peer-placeholder-shown:text-lg
         peer-placeholder-shown:text-gray-600 
         peer-placeholder-shown:top-1.5 

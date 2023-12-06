@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import SideNavbar from "./components/SideNavbar";
-import Main from "./components/Main";
+
+import Landing from "./components/Landing";
+import Dashboard from "./components/Dashboard";
+import About from "./components/About";
 import TopNavbar from "./components/TopNavbar";
 function App() {
   return (
     <div className="flex flex-col w-full h-full">
       <TopNavbar />
-      <div className="flex">
-        <SideNavbar />
-        <Main />
-      </div>
+      <Routes>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Landing />} />
+      </Routes>
+    
     </div>
   );
 }

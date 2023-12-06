@@ -125,27 +125,31 @@ const projectList = [
   },
 ];
 
-export default function Main() {
+export default function ProjectsList() {
   return (
     <div className="w-full flex flex-col items-center  bg-blue-200 p-5">
       <div className="w-full">
         <h1> Projects:</h1>
-        {projectList.map((project) => {
+        {projectList.map((project, index) => {
           return (
-            <div className="w-full flex flex-col items-center  bg-blue-200 p-5">
+            <div
+              key={index}
+              className="w-full flex flex-col items-center  bg-blue-200 p-5"
+            >
               <h1>{project.title}</h1>
               <p>{project.description}</p>
               <div className="w-full">
                 <h2>Groups:</h2>
-                {project.groups.map((group) => {
-                  return(
-                    <div>
-                        <h3>{group.name}</h3>
-                        {group.members.map((member)=><div>{member.name}</div>)}
+                {project.groups.map((group,index) => {
+                  return (
+                    <div key={index}>
+                      <h3>{group.name}</h3>
+                      {group.members.map((member, index) => (
+                        <div key={index}>{member.name}</div>
+                      ))}
                     </div>
-                  )
+                  );
                 })}
-                
               </div>
             </div>
           );

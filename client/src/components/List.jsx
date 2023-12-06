@@ -8,7 +8,7 @@ export default function List({ title, members }) {
     <div>
       <h3>List:</h3>
       {title && <h1>{title}</h1>}
-      {members && members.map((member) => <p key={member}>{member}</p>)}
+      {members && members.map((member,index) => <p key={index}>{member}</p>)}
     </div>
   );
 }
