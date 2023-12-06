@@ -1,20 +1,17 @@
-import { set } from "mongoose";
-import { useState } from "react";
+
+
 import { useForm } from "react-hook-form";
+import { useAppState } from "../context/AppStateContext";
+
 import { UserPlusIcon, UserMinusIcon } from "@heroicons/react/24/solid";
 
-export default function InputMask({ batch, setBatch }) {
+
+export default function InputMask() {
+  const { batch, setBatch } = useAppState();
   console.log("rendering member form");
   const classMembers = batch.members;
   console.log("members are : ", classMembers);
 
-  // const [classMembers, setClassMembers] = useState(() => {
-  //   const storedMembers = localStorage.getItem("members");
-  //   return storedMembers && storedMembers !== "undefined"
-  //     ? JSON.parse(storedMembers)
-  //     : members;
-  // });
-  // const [classMembers, setClassMembers] = useState(members);
 
   const {
     register,

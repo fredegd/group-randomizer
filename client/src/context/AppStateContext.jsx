@@ -1,39 +1,58 @@
-import React, { useContext,createContext } from "react";
-import { signal } from "@preact/signals-react";
-const AppState = createContext();
+import { useContext, createContext, useState } from "react";
+import { batchData } from "../data/batchExample";
 
-function AppStateProvider(props) {
-  const batch = signal({});
-  function createBatch(batchName, instructorName, members, projects) {
-    batch.value = [
-      ...batch.value,
-      {
-        batchName: batchName.value,
-        instructor: instructorName.value,
-        members: members.value,
-        projects: projects.value,
-      },
-    ];
-  }
+const AppStateContext = createContext();
+
+export function useAppState() {
+  return useContext(AppStateContext);
+}
+
+export default function AppStateProvider({ children }) {
+  const [batch, setBatch] = useState(
+    localStorage.getItem("batch")
+      ? JSON.parse(localStorage.getItem("batch"))
+      : batchData
+  );
+  localStorage.setItem("batch", JSON.stringify(batch));
 
   //TODO: add a function to remove a batch
   //TODO add a function to remove a member
   //TODO add a function to remove a instructor
   //TODO add a function to remove a project
 
+  const editName = (project, batch) => {
+    const name = project.title;
+    console.log(name);
+  };
+
+  const editGroupsAmount = (project, batch) => {
+    const amount = project.groups.length;
+
+    console.log(amount);
+  };
+
+  const reshuffleGroups = (project, batch) => {
+    const newGroups = project.groups;
+    console.log(newGroups);
+  };
+
+  const deleteProject = (project, batch) => {
+    const id = project.index;
+    console.log(id);
+  };
+
   return (
-    <AppState.Provider value={{ createBatch }}>
-      {props.children}
-    </AppState.Provider>
+    <AppStateContext.Provider
+      value={{
+        batch,
+        setBatch,
+        editName,
+        editGroupsAmount,
+        reshuffleGroups,
+        deleteProject,
+      }}
+    >
+      {children}
+    </AppStateContext.Provider>
   );
 }
-
-function useAppState() {
-  const appState = useContext(AppState);
-  if (!appState) {
-    throw new Error("useAppState must be used within a AppStateProvider");
-  }
-  return appState;
-}
-
-export { AppStateProvider, useAppState };

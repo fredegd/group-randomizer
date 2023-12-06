@@ -11,7 +11,7 @@ export default function ProjectCard({ project }) {
           </h1>
           <p>{project.description}</p>
         </section>
-        <ProjectOptions />
+        <ProjectOptions project={project} />
       </div>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:justify-around gap-5">
         {project.groups.map((group, index) => {

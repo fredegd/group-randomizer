@@ -1,17 +1,13 @@
-import { useState } from "react";
+
 
 import { useForm } from "react-hook-form";
+import { useAppState } from "../context/AppStateContext";
 
 import { ComputerDesktopIcon } from "@heroicons/react/24/solid";
 
-export default function BatchForm({ batch, setBatch }) {
+export default function BatchForm() {
+  const {batch,setBatch} = useAppState();
   const instructorName = batch.instructor;
-
-  // const [instructorName, setInstructorName] = useState(
-  //   localStorage.getItem("instructorName")
-  //     ? JSON.parse(localStorage.getItem("instructorName"))
-  //     : ""
-  // );
 
   const {
     register,

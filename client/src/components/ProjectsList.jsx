@@ -1,11 +1,11 @@
-import { groupColors } from "../groupColors";
-import { useState, useEffect } from "react";
+
+import { useState } from "react";
 import ProjectForm from "./ProjectForm";
 import ProjectCard from "./ProjectCard";
+import { useAppState } from "../context/AppStateContext";
 
-import ProjectOptions from "./ProjectOptions";
-
-export default function ProjectsList({ batch, setBatch }) {
+export default function ProjectsList() {
+  const { batch, setBatch } = useAppState();
   const projects = batch.projects;
   const [displayForm, setDisplayForm] = useState(false);
 
